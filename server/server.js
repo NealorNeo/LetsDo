@@ -1,46 +1,46 @@
 const express = require('express')
 const app = express()
-const port = process.env.Port || 3001
+const port = process.env.PORT || 3001
+// const cors = require('cors');
 
+// app.use(cors());
+app.listen(port, () => console.log(`server is listening on port: ${port}`));
+app.use(express.json());
 
-app.listen(port, () => console.log(`server is listening on port: ${port}`))
+let lists = [];
 
-app.use(express.json())
+app.get('/lists', (req, res) => {
+    res.json({ lists });
+});
 
-let essays = []
+app.post('/lists', (req, res) => {
+    lists = req.body;
+    res.json({ lists });
+});
 
-app.get('/essays', (req, res) => {
-    res.json({ essays })
-})
-
-app.post('/essays', (req, res) => {
-    essays = req.body
-    res.json({ essays })
-})
-
-app.delete('/essays', (req, res) => {
-    const id = req.body.id
-    const index = essays.findIndex(item => item.id == id)
+app.delete('/lists', (req, res) => {
+    const id = req.body.id;
+    const index = lists.findIndex(item => item.id == id);
     if (index != -1) {
-        essays.splice(index, 1)
+        lists.splice(index, 1);
     }
-    res.json({ essays })
-})
+    res.json({ lists });
+});
 
-app.put('/essays', (req, res) => {
-    const id = req.body.id
-    const content = req.body.content
-    const index = essays.findIndex(item => item.id == id)
+app.put('/lists', (req, res) => {
+    const id = req.body.id;
+    const content = req.body.content;
+    const index = lists.findIndex(item => item.id == id);
     if (index != -1) {
-        essays[index] = {id, content}
+        lists[index] = {id, content};
     }
-    res.json({ essays })
-})
+    res.json({ lists });
+});
 
 
 
 if (process.env.NODE_ENV === 'production') {
-    const path = require('path')
+    const path = require('path');
     app.use(express.static(path.join(__dirname, 'build')));
 
     app.get('/*', (req, res) => {
