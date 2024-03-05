@@ -7,12 +7,6 @@ function App() {
     return (
       <>
         <div className='container'>
-            <header className="header">
-              {/* <div>
-                <Link to='/about'></Link>
-              </div> */}
-            </header>
-
             <main>
               <Router>
                 <Routes>

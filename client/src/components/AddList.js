@@ -1,4 +1,4 @@
-export function AddList ( { addList, newList, setNewList } ) {
+export function AddList ({addList, newList, setNewList}) {
   const handleSubmit = (event) => {
       event.preventDefault();
       addList();
@@ -6,9 +6,9 @@ export function AddList ( { addList, newList, setNewList } ) {
 
   return (
     <section className='submitForm'>
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={handleSubmit}>
           <textarea 
-            value={ newList } 
+            value={newList} 
             placeholder="Type Content Here" 
             cols="70" rows="5" 
             onChange={(event) => setNewList(event.target.value)}>
