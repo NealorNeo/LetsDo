@@ -5,21 +5,18 @@ import { ListContent } from './components/ListContent';
 
 function App() {
     return (
-      <>
-        <div className='container'>
-            <main>
-              <Router>
-                <Routes>
-                  <Route 
-                    path='/' 
-                    element={<ListContent />}>
-                    </Route>
-                </Routes>
-              </Router>
-              
-            </main>
-        </div>
-      </>
+      <div>
+          <main>
+            <Router>
+              <Routes>
+                <Route 
+                  path='/' 
+                  element={<ListContent />}>
+                  </Route>
+              </Routes>
+            </Router>
+          </main>
+      </div>
     )
 }
 

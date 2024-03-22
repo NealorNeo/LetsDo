@@ -58,43 +58,55 @@ export function ListContent() {
     }
 
     return (
-        <div className='container'>
-            <div className='showAll'>
-                <h3>Your To-do List</h3>
+        <div className="flex w-full flex-col justify-center items-center h-full">
+            <AddList
+                addList={addList}
+                newList={newList}
+                setNewList={setNewList}
+            />
+            
+            <div className="sm:w-4/5 md:w-2/3 lg:w-2/3 mt-10 bg-green-100 rounded-3xl">
+                <div className="flex flex-col justify-center items-center bg-green-100 h-full rounded-3xl">
+                    {Lists && Lists.map((List, index) => {
+                        return (
+                            <div className="w-4/5 flex flex-row bg-green-100 rounded-3xl" key={index}>
+                                <div className="relative w-full bg-gray-100 rounded-3xl">
+                                    {List.isEdit
+                                        ? <textarea value={List.content} onInput={({ target }) => {
+                                            const list = [...Lists];
+                                            list[index].content = target.value;
+                                            setLists(list);
+                                        }} />
+                                        : <div className="pl-2 rounded-3xl" id={List.id}>
+                                            <text className="">{List.content}</text>
+                                            </div>
+                                    }
+                                    <div className="absolute inset-y-0 right-0 flex flex-row">
+                                        {!List.isEdit
+                                            ? <button className=""
+                                                onClick={() => {
+                                                const list = [...Lists];
+                                                list[index].isEdit = true;
+                                                setLists(list);
+                                            }}>Edit</button>
+                                            : <button onClick={() => editList(index)}>Save</button>
+                                        }
+                                        
+                                        <button 
+                                            className="" 
+                                            onClick={() => deleteList(List.id)}>
+                                                Delete
+                                        </button>
 
-                {Lists && Lists.map((List, index) => {
-                    return <div className='listContainer' key={index}>
-                        {
-                            List.isEdit
-                                ? <textarea cols="30" rows="5" value={List.content} onInput={({ target }) => {
-                                    const list = [...Lists];
-                                    list[index].content = target.value;
-                                    setLists(list);
-                                }} />
-                                : <p className='listContent' id={List.id}>{List.content} </p>
-                        }
-                        <button onClick={() => deleteList(List.id)}>Delete</button>
-
-                        {
-                            !List.isEdit
-                                ? <button onClick={() => {
-                                    const list = [...Lists];
-                                    list[index].isEdit = true;
-                                    setLists(list);
-                                }}>Edit</button>
-                                : <button onClick={() => editList(index)}>Save</button>
-                        }
-                    </div>
-                })}
-            </div>
-
-            <div className='listInput'>
-                <h3>Add To-do</h3>
-                <AddList
-                    addList={addList}
-                    newList={newList}
-                    setNewList={setNewList}
-                />
+                                        
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         </div>
     )
